@@ -20,6 +20,7 @@ import org.jetbrains.anko.toast
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONException
+import org.jetbrains.anko.startActivity
 import tech.freeflo.datingapp.utils.Constants
 import tech.freeflo.datingapp.R
 import tech.freeflo.datingapp.activities.HomeActivity
@@ -65,7 +66,8 @@ class LoginFragment : Fragment() {
             e.printStackTrace()
         }
 
-        context?.toast(jsonObject.toString())
+        progressDialog.dismiss()
+        activity?.startActivity<HomeActivity>()
 
         AndroidNetworking.post(Constants.LOGIN_URL)
             .addJSONObjectBody(jsonObject)

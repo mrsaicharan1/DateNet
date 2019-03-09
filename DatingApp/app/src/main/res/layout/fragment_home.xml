@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/scrollLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="34dp"
+                android:paddingStart="8dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="8dp"
+                android:text="Hey, Sashank !"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserrat"/>
+
+            <TextView
+                    android:id="@+id/xpTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/user"
+                    android:layout_alignStart="@id/user"
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp"
+                    android:text="Trust Factor"
+                    android:textColor="@color/colorText"
+                    android:textSize="15sp" />
+
+        <RelativeLayout
+                android:id="@+id/progressLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/xpTitle"
+                android:padding="8dp">
+
+            <ProgressBar
+                    android:id="@+id/totalProgress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:progress="25"
+                    android:scaleY="8"/>
+
+            <TextView
+                    android:id="@+id/pointsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:padding="5dp"
+                    android:text="25 / 100"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="0dp"
+                    android:layout_alignBottom="@+id/totalProgress"/>
+
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/socialMediaTV"
+                android:text="Add Social Media Links"
+                android:padding="8dp"
+                android:textColor="@color/colorText"
+                android:layout_below="@id/progressLayout"
+
+        />
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/boy"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:id="@+id/imageView"
+                android:layout_alignTop="@+id/user"
+                android:layout_above="@+id/progressLayout"
+                android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+                android:id="@+id/buttonLL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/socialMediaTV"
+                android:layout_margin="8dp"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp">
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:padding="10dp"
+                        android:id="@+id/fbLink"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/fb" />
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:padding="10dp"
+                        android:id="@+id/instaLink"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/instagram" />
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:padding="10dp"
+                        android:id="@+id/twitterLink"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/twitter" />
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/mailLink"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/email" />
+
+            <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/contactLink"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/whatsapp"/>
+
+
+            </LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnLogin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonLL"
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/colorAccent"
+                android:padding="12dp"
+                android:text="Analyse My Profile"
+                android:textColor="#002637"
+                android:textStyle="bold" android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"/>
+
+
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

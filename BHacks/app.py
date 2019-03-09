@@ -7,6 +7,8 @@ import bcrypt
 from models import User
 from requests_oauthlib import OAuth2Session
 from requests_oauthlib.compliance_fixes import facebook_compliance_fix
+import csv
+
 
 app = Flask(__name__)
 # run_with_ngrok(app) 
@@ -71,6 +73,11 @@ def fake_detector():
 						   str(account_info['status']), str(account_info['default_profile']),
 						   str(account_info['default_profile_image']), 
 						   str(account_info['has_extended_profile']), str(account_info['name'])]
+		csvFile =  open('test_data.csv', 'w')
+		csvFile.write("id	id_str	screen_name	location	description	url	followers_count	friends_count	listed_count	created_at	favorites_count	verified	statuses_count	lang	status	default_profile	default_profile_image	has_extended_profile	name\n")
+		csvFile.write("\t".join(account_details))
+
+		csvFile.close()
 		return "\t".join(account_details)	
 
 @app.route('/signup', methods=['POST', 'GET'])

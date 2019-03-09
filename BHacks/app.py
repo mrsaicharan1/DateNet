@@ -1,32 +1,19 @@
 
-from flask import Flask, jsonify, request, redirect, session
+from flask import Flask, jsonify, request, redirect, session, url_for
 # from flask_ngrok import run_with_ngrok
 from flask_dance.consumer import OAuth2ConsumerBlueprint
+from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 import bcrypt
 from models import User
 from requests_oauthlib import OAuth2Session
 from requests_oauthlib.compliance_fixes import facebook_compliance_fix
 
 app = Flask(__name__)
-# run_with_ngrok(app)
-app.secret_key = "<ISHOULDBESOMETHING>"
-# batman_example = OAuth2ConsumerBlueprint(
-#     "batman-example", __name__,
-#     client_id="642784736153535",
-#     client_secret="2c8b9d3b20909049d361b2e180f6b464",
-#     base_url="https://graph.facebook.com",
-#     authorization_url="https://www.facebook.com/dialog/oauth",
-#     token_url="https://graph.facebook.com/oauth/access_token",
-# )
-# app.register_blueprint(batman_example, url_prefix="/login")
-client_id = '642784736153535'
-client_secret="2c8b9d3b20909049d361b2e180f6b464"
-authorization_base_url="https://www.facebook.com/dialog/oauth"
-token_url = 'https://graph.facebook.com/oauth/access_token'
-redirect_uri = 'http://localhost:5000/callback'
+twitter_blueprint = make_twitter_blueprint(api_key='uQyFwItPPYK9EpXsurufWm52O', api_secret='lpe1StRf9QXhn8hsu2EQfh9KFwAd8hGMmZi7qHzpxZYfwSqh7Y')
+app.register_blueprint(twitter_blueprint, url_prefix='/twitter_login')
 
-facebook = OAuth2Session(client_id, redirect_uri=redirect_uri)
-facebook = facebook_compliance_fix(facebook)
+
+app.secret_key = "<ISHOULDBESOMETHING>"
 
 
 tasks = [
@@ -48,36 +35,18 @@ def get_tasks(task_id):
 	print(task_id)
 	return jsonify({'tasks': tasks})
 
-@app.route('/facebook_login_verify', methods=['POST', 'GET'])
-def facebook_login_verify():
-	facebook = OAuth2Session(client_id, redirect_uri=redirect_uri)
-	authorization_url, state = facebook.authorization_url(authorization_base_url)
-	print ('Please go here and authorize,', authorization_url)
-	session['oauth_state'] = state
-	return redirect(authorization_url)
-	# redirect_response = raw_input('http://localhost:5000/dashboard')
-	# facebook.fetch_token(token_url, client_secret=client_secret, authorization_response=redirect_response)
-	# r = facebook.get('https://graph.facebook.com/me?')
-	# print(r.content)
-
-@app.route('/callback', methods=['GET'])
-def dashboard():
-	facebook = OAuth2Session(client_id, state=session['oauth_state'])
-	token = facebook.fetch_token(token_url, client_secret=client_secret,authorization_response=request.url)
-	session['oauth_token'] = token
-	return redirect(url_for('.profile'))
-
-@app.route("/profile", methods=["GET"])
-def profile():
-    """Fetching a protected resource using an OAuth 2 token.
-    """
-    facebook = OAuth2Session(client_id, token=session['oauth_token'])
-    return jsonify(facebook.get('https://graph.facebook.com/me?').json())
-
 @app.route('/twitter_login_verify', methods=['POST', 'GET'])
 def twitter_login_verify():
-	pass
+    if not twitter.authorized:
+        return redirect(url_for('twitter.login'))
+    account_info = twitter.get('account/settings.json')
 
+    if account_info.ok:
+        account_info_json = account_info.json()
+
+        return '<h1>Your Twitter name is @{}'.format(account_info_json['screen_name'])
+
+    return '<h1>Request failed!</h1>'
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
